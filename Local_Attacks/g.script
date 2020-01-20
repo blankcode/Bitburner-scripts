@@ -1,0 +1,4 @@
+// g.script
+while (true) {
+	grow(args[0]);
+}
