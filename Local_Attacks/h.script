@@ -1,0 +1,4 @@
+// h.script
+while (true) {
+    hack(args[0]);
+}
