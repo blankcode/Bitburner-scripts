@@ -2,6 +2,7 @@
 Make your purchased servers run a script against a target.
 
     usage:  run serdo.script <SCRIPT_TO_RUN> <TARGET_HOST>
+            run serdo.script <SCRIPT_TO_RUN> <TARGET_HOST> <ATTACK_HOST>
 
 Server Do then figuers out how many threads of that script can be run at once on your purchased servers.
 
