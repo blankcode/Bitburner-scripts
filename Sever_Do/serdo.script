@@ -1,11 +1,14 @@
 // serdo.script
-// usage:  run serdo.script <SCRIPT_TO_RUN> <TARGET_HOST>
-// usage:  run serdo.script <SCRIPT_TO_RUN> <TARGET_HOST> <ATTACK_HOST>
+// usage:
+//   run serdo.script <SCRIPT_TO_RUN> <TARGET_HOST>
+//   run serdo.script <SCRIPT_TO_RUN> <TARGET_HOST> <ATTACK_HOST>
+
 file = args[0];
 target_host = args[1];
 smem = getScriptRam(file, "home");
 
 if (args[2] !== undefined) {
+	tprint("Single Host Mode: " + args[2]);
 	mem = getServerRam(host);
 	numThreads = Math.round(mem[0] / smem) - 1;
 	killall(host);
@@ -14,6 +17,7 @@ if (args[2] !== undefined) {
 } else {
 	host = 0;
 	while (true) {
+		tprint("All Host Mode: " + args[2]);
 		if (serverExists(host)) {
 			mem = getServerRam(host);
 			numThreads = Math.round(mem[0] / smem) - 1;
