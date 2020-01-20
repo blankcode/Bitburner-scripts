@@ -1,0 +1,19 @@
+// serdo.script
+// usage:  run serdo.script <SCRIPT_TO_RUN> <TARGET_HOST>
+file = args[0];
+target_host = args[1];
+host = 0;
+smem = getScriptRam(file, "home");
+
+while (true) {
+	if (serverExists(host)) {
+		mem = getServerRam(host);
+		numThreads = Math.round(mem[0] / smem) - 1;
+		killall(host);
+		scp(file, "home", host);
+		exec(file, host, numThreads, target_host);
+		host++;
+	} else {
+        exit();
+    }
+}
