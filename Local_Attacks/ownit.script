@@ -1,0 +1,27 @@
+// ownit.script
+// Opens ports, nukes and SCPs the Local class of scripts to the specified servers
+
+// n.script
+// Crack it open.
+if (fileExists("BruteSSH.exe")) {
+  brutessh(args[0]);
+}
+if (fileExists("FTPCrack.exe")) {
+  ftpcrack(args[0]);
+}
+if (fileExists("relaySMTP.exe")) {
+  relaysmtp(args[0]);
+}
+if (fileExists("HTTPWorm.exe")) {
+  httpworm(args[0]);
+}
+if (fileExists("SQLInject.exe")) {
+  sqlinject(args[0]);
+}
+
+// Own it.
+nuke(args[0]);
+
+// Arm it.
+files = ["g.script", "h.script", "w.script"];
+scp(files, "home", args[0]);
