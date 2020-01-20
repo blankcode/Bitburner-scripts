@@ -13,7 +13,7 @@ if (args[2] !== undefined) {
 	numThreads = Math.round(mem[0] / smem) - 1;
 	killall(args[2]);
 	scp(file, "home", args[2]);
-	exec(file, host, numThreads, args[2]);
+	exec(file, args[2], numThreads, target_host);
 } else {
 	host = 0;
 	while (true) {
