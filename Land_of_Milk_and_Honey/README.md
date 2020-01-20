@@ -1,6 +1,6 @@
 Breif Overveiw:
 
-run n.script foodnstuff
+| run n.script foodnstuff
 	| Open Ports
 	| NUKE
 	\_ runs milker.script foodnstuff
