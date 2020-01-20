@@ -1,0 +1,8 @@
+// milker.script
+target_host = args[0];
+smem = getScriptRam(milk.script, "home");
+mem = getServerRam(target_host);
+numThreads = Math.round(mem[0] / smem) - 1;
+killall(target_host);
+scp("milk.script", "home", target_host);
+exec("milk.script", target_host, numThreads);
