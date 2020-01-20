@@ -2,7 +2,7 @@ This set is for a longhaul game. Any Servers you hack will trickle money to you 
 
 Breif Overveiw:
 
-    run n.script foodnstuff
+    run nm.script foodnstuff
     	| Open Ports
     	| NUKE
     	\_ runs milker.script foodnstuff
