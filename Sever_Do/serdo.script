@@ -9,10 +9,10 @@ smem = getScriptRam(file, "home");
 
 if (args[2] !== undefined) {
 	tprint("Single Host Mode: " + args[2]);
-	mem = getServerRam(host);
+	mem = getServerRam(args[2]);
 	numThreads = Math.round(mem[0] / smem) - 1;
-	killall(host);
-	scp(file, "home", host);
+	killall(args[2]);
+	scp(file, "home", args[2]);
 	exec(file, host, numThreads, args[2]);
 } else {
 	host = 0;
