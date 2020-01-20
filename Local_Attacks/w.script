@@ -1,0 +1,4 @@
+// w.script
+while (true) {
+	weaken(args[0]);
+}
