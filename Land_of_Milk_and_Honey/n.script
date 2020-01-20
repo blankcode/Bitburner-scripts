@@ -1,0 +1,32 @@
+// n.script
+// Crack it open.
+tprint("Cracking: " + args[0]);
+if (fileExists("BruteSSH.exe")) {
+    tprint("openning SSH");
+	brutessh(args[0]);
+}
+if (fileExists("FTPCrack.exe")) {
+    tprint("openning FTP");
+	ftpcrack(args[0]);
+}
+if (fileExists("relaySMTP.exe")) {
+    tprint("openning SMTP");
+	relaysmtp(args[0]);
+}
+if (fileExists("HTTPWorm.exe")) {
+    tprint("openning HTTP");
+	httpworm(args[0]);
+}
+if (fileExists("SQLInject.exe")) {
+    tprint("openning SQL");
+	sqlinject(args[0]);
+}
+// Own it.
+tprint("Nuking");
+nuke(args[0]);
+
+run("milker.script",1,args[0]);
+
+// Report Money
+tprint("Server Money Available: " + nFormat(getServerMoneyAvailable(args[0]), "$0,0"));
+tprint("      Server Max Money: " + nFormat(getServerMaxMoney(args[0]), "$0,0"));
