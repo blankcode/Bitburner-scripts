@@ -1,3 +1,5 @@
+This set is for a longhaul game. Any Servers you hack will trickle money to you forever.
+
 Breif Overveiw:
 
     run n.script foodnstuff
