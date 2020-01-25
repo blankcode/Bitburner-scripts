@@ -8,10 +8,10 @@ while (true) {
     MaxCash = getServerMaxMoney(host);
 
     if (SerSec > MinSec) {
-    	exec("arw.script", "home", 200, host)
+    	exec("arw.script", "home", 2000, host)
     } else {
         if (SerCash < MaxCash) {
-        	exec("arg.script", "home", 200, host)
+        	exec("arg.script", "home", 2000, host)
         } else {
             hack(host);
         }
