@@ -7,13 +7,21 @@ while (true) {
     SerCash = getServerMoneyAvailable(host);
     MaxCash = getServerMaxMoney(host);
 
+    // Proportional threading
+    Hthreads = Math.round(MinSec * 50);
+    Gthreads = Math.round(SerSec * 50);
+    Wthreads = Math.round(SerSec * 50);
+    DrainGoal = (MaxCash * 0.9);
+    
     if (SerSec > MinSec) {
-    	exec("arw.script", "home", 500, host)
+        exec("arw.script", "home", Wthreads, host);
     } else {
         if (SerCash < MaxCash) {
-        	exec("arg.script", "home", 500, host)
+            exec("arg.script", "home", Gthreads, host);
         } else {
-            hack(host);
+            while (getServerMoneyAvailable(host) > DrainGoal) {
+                hack(host);
+            }
         }
     }
 }
