@@ -1,0 +1,47 @@
+// broker.script
+// RAM 15.2 GB
+// Total RAM 501.60 GB
+
+// Whats the lowest forecast we want to buy? 5.5 is about as low as I would go.
+goodbuy = 0.55;
+
+// Percent of budget to use total money to use.
+// This script SHOULD only buy 2+ Star stocks, so not all 33 stocks bought into.
+mybudget = 0.1;
+
+// Getthe stock symbol from runtime argument 0
+stock = args[0];
+
+// Main loop
+while (true) {
+    fcast = getStockForecast(stock);
+    // how much money to use (var "mymoney")
+    mymoney = getServerMoneyAvailable("home") * mybudget;
+    // What's the stock value (var "price")
+    price = getStockPrice(stock);
+    // How many shares can I afford (var "myshares")
+    myshares = Math.floor(mymoney / price);
+    // How many shares do I own
+    ownedshares = getStockPosition(stock);
+
+    // Max shares
+    maxshares = getStockMaxShares(stock);
+    if (myshares > maxshares) {
+        myshares = maxshares;
+    }
+
+    // IF "fcast" is greater than goodbuy purchase
+    if (fcast > goodbuy) {
+        if (ownedshares[0] < 1) {
+
+            buyStock(stock, myshares);
+        }
+    }
+
+    // IF "fcast" is lesser than goodbuy sell
+    if (fcast < goodbuy) {
+        if (ownedshares[0] > 1) {
+            sellStock(stock, ownedshares[0]);
+        }
+    }
+}
