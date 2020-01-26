@@ -13,6 +13,6 @@ So I made the ultimate Stock Trader I could imagine.
 
 In all it needs a server with 512 GB RAM but, each stock gets personalized attention.
 
-It's not looking for a specific amount of gains or anything. If a stock is good enough to buy it does, and it rides that rise until the forecast changes to a minus.
+It's not looking for a specific amount of gains or anything. If a stock is good enough to buy, it does, and it rides that rise until the forecast changes to a minus.
 
 If anyone else wants to test it for me, please do.
