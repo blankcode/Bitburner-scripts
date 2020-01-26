@@ -1,4 +1,6 @@
 // milk.script
+// Hack if seclev is lowest and money is max.
+// Hack until you have removed 10% of the max money.
 host = getHostname();
 while (true) {
     SerSec = getServerSecurityLevel(host);
@@ -8,7 +10,6 @@ while (true) {
     MaxCash = getServerMaxMoney(host);
 
     // Proportional threading
-    Hthreads = Math.round(MinSec * 50);
     Gthreads = Math.round(SerSec * 50);
     Wthreads = Math.round(SerSec * 50);
     DrainGoal = (MaxCash * 0.9);
