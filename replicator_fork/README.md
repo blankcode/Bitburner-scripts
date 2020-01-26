@@ -22,3 +22,44 @@ Like a NAVY SEAL Team calling in a heavy strike from an AC-130 Gunship.
 "Bring the rain!"
 
 :)
+
+Note:
+
+Once it really gets rolling, the money flows very nicely.
+
+This is after overnight:
+
+Total online production of Active scripts:$24.939m / sec
+
+Total online production since last Aug installation:$206.422b($1.356m / sec)
+
+
+netlink            [||||||------------------------]
+
+foodnstuff         [||||||------------------------]
+
+sigma-cosmetics    [||||||------------------------]
+
+joesguns           [||||||------------------------]
+
+zer0               [|||---------------------------]
+
+nectar-net         [||||||------------------------]
+
+silver-helix       [|-----------------------------]
+
+hong-fang-tea      [||||||------------------------]
+
+harakiri-sushi     [||||||------------------------]
+
+phantasy           [|||---------------------------]
+
+max-hardware       [|||---------------------------]
+
+omega-net          [|||---------------------------]
+
+iron-gym           [|||---------------------------]
+
+avmnite-02h        [|||---------------------------]
+
+home               [|||||-------------------------]
