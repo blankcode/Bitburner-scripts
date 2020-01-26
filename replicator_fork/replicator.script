@@ -33,6 +33,8 @@ for (var i = 0; i < servers.length; i++) {
     switch (serv) {
         case "home":
             break;
+        case "darkweb":
+            break;
         case getHostname():
             break;
         default:
@@ -41,7 +43,7 @@ for (var i = 0; i < servers.length; i++) {
                 scp("milk.script", serv);
                 if (!hasRootAccess(serv)) {
                     if (getServerRequiredHackingLevel(serv) > getHackingLevel()) {
-                        tprint('server hacking level too high @ ' + serv + ': ' + getServerRequiredHackingLevel(serv));
+                        //tprint('server hacking level too high @ ' + serv + ': ' + getServerRequiredHackingLevel(serv));
                     } else {
                         print('hacking ' + serv);
                         var ports = getServerNumPortsRequired(serv);
@@ -95,7 +97,7 @@ for (var i = 0; i < servers.length; i++) {
                 if (!scriptRunning("milk.script", serv)) {
                     if (!scriptRunning("replicator.script", serv)) {
                         killall(serv);
-                        print('waiting 10s for killing scripts');
+                        //print('waiting 10s for killing scripts');
                         sleep(10000);
                         exec("replicator.script", serv, 1, 0);
                     }
@@ -107,10 +109,12 @@ for (var i = 0; i < servers.length; i++) {
 switch (getHostname()) {
     case "home":
         break;
+    case "darkweb":
+        break;
     default:
         spawn("milk.script", 1);
         exec("milk.script", getHostname(), 1);
-        print('waiting 5s for script start');
+        //print('waiting 5s for script start');
         sleep(5000);
         break;
 }

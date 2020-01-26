@@ -83,6 +83,7 @@ while (hacknet.numNodes() > 0) {
             hacknet.getRamUpgradeCost((hacknet.numNodes() - 1), n) === Infinity &&
             hacknet.getCoreUpgradeCost((hacknet.numNodes() - 1), n) === Infinity
         ) {
+            // Only buy nodes up to 25. Past that its not really worth it.
             if (hacknet.numNodes() < 25) {
                 hacknet.purchaseNode();
             }
