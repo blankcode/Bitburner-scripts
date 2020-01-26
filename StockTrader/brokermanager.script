@@ -1,6 +1,5 @@
 // brokermanager.script
-// RAM 15.2 GB
-// Total RAM 501.60 GB
+// RAM needed 512 GB
 
 MYHOST = getHostname();
 symbols = ["ECP", "MGCP", "BLD", "CLRK", "OMTK",

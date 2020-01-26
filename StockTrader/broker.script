@@ -1,6 +1,5 @@
 // broker.script
-// RAM 15.2 GB
-// Total RAM 501.60 GB
+// RAM needed 512 GB
 
 // Whats the lowest forecast we want to buy? 5.5 is about as low as I would go.
 goodbuy = 0.55;
