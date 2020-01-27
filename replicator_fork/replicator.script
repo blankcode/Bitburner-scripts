@@ -27,11 +27,11 @@ var servers2 = [getHostname()];
 var scanner = scan(getHostname());
 var servers = servers2.concat(scanner);
 
-if (getHostname() = "home") {
+if (getHostname() == "home") {
     // replicator is not able to spread past nodes with no RAM.
     // Add these to the breakwall array as located
     var breakwalls = ["summit-uni", "I.I.I.I", "omnia", "solaris", "unitalife", "global-pharm"];
-    var hometargets = ["foodnstuff", "sigma-cosmetics", "joesguns", "hong-fang-tea", "harakiri-sushi", "iron-gym"]
+    var hometargets = ["foodnstuff", "sigma-cosmetics", "joesguns", "hong-fang-tea", "harakiri-sushi", "iron-gym"];
     var servers = hometargets.concat(breakwalls);
 }
 
