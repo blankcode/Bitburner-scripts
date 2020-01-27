@@ -7,7 +7,6 @@ while (true) {
     // Server Sec
     SerSec = getServerSecurityLevel(host);
     MinSec = getServerMinSecurityLevel(host);
-
     // Server Cash
     SerCash = getServerMoneyAvailable(host);
     MaxCash = getServerMaxMoney(host);
