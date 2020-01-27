@@ -12,7 +12,7 @@ while (true) {
     MaxCash = getServerMaxMoney(host);
     // No cash. Exit.
     if (MaxCash < 1) {
-        exit()
+        exit();
     }
     // Proportional threading
     // NOw takes RAM into account
