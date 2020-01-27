@@ -16,8 +16,8 @@ while (true) {
     homeRAM = getServerRam("home");
     totalRAM = homeRAM[0];
     // Tune Proportional Threading
-    // RAM Boost (home RAM GBs divided by 1000. 8192 / 1000 = 8 * 10 = 80) (80 Threads)
-    ThreadsBoost = Math.round(totalRAM / 1000);
+    // RAM Boost (home RAM GBs divided by 1000. 8192 / 4000 = 2 * 10 = 20) (20 Threads)
+    ThreadsBoost = Math.round(totalRAM / 4000);
     // Grow Threads
     Gthreads = Math.round(SerSec * 10 * ThreadsBoost);
     // Weaken Threads
