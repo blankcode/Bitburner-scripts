@@ -51,6 +51,7 @@ for (var i = 0; i < servers.length; i++) {
             if (serverExists(serv)) {
                 scp("replicator.script", "home", serv);
                 scp("milk.script", serv);
+                scp("h.script", serv);
                 if (!hasRootAccess(serv)) {
                     if (getServerRequiredHackingLevel(serv) > getHackingLevel()) {
                         //tprint('server hacking level too high @ ' + serv + ': ' + getServerRequiredHackingLevel(serv));
@@ -103,6 +104,15 @@ for (var i = 0; i < servers.length; i++) {
                         }
                     }
                     print(serv + ' rooted');
+                }
+                // Force payload update
+                if (args[0] == force) {
+                    if (!scriptRunning("replicator.script", serv)) {
+                        killall(serv);
+                        //print('waiting 10s for killing scripts');
+                        sleep(10000);
+                        exec("replicator.script", serv, 1, 0);
+                    }
                 }
                 if (!scriptRunning("milk.script", serv)) {
                     if (!scriptRunning("replicator.script", serv)) {
