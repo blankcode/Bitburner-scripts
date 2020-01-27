@@ -18,7 +18,7 @@ while (true) {
     totalRAM = homeRAM[0];
     // Tune Proportional Threading
     // RAM Boost (home RAM GBs divided by 1000. 8192 / 1000 = 8 * 10 = 80)
-    ThreadsBoost = Math.round(totalRAM / 1000)
+    ThreadsBoost = Math.round(totalRAM / 1000);
     // Grow Threads
     Gthreads = Math.round(SerSec * 10 * ThreadsBoost);
     // Weaken Threads
