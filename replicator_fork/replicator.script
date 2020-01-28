@@ -105,6 +105,8 @@ for (var i = 0; i < servers.length; i++) {
                     }
                     print(serv + ' rooted');
                 }
+                /*
+                // Force update has failed. It's clobbering recent runs of milk.
                 // Force payload update
                 if (args[0] == "force") {
                     if (!scriptRunning("replicator.script", serv, "force")) {
@@ -113,7 +115,8 @@ for (var i = 0; i < servers.length; i++) {
                         sleep(10000);
                         exec("replicator.script", serv, 1, "force", 0);
                     }
-                }
+                }*/
+                
                 if (!scriptRunning("milk.script", serv)) {
                     if (!scriptRunning("replicator.script", serv)) {
                         killall(serv);
