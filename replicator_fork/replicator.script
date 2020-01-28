@@ -106,12 +106,12 @@ for (var i = 0; i < servers.length; i++) {
                     print(serv + ' rooted');
                 }
                 // Force payload update
-                if (args[0] == force) {
-                    if (!scriptRunning("replicator.script", serv)) {
+                if (args[0] == "force") {
+                    if (!scriptRunning("replicator.script", serv, "force")) {
                         killall(serv);
                         //print('waiting 10s for killing scripts');
                         sleep(10000);
-                        exec("replicator.script", serv, 1, 0);
+                        exec("replicator.script", serv, 1, "force", 0);
                     }
                 }
                 if (!scriptRunning("milk.script", serv)) {
