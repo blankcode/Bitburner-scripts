@@ -34,6 +34,12 @@ if (getHostname() == "home") {
     // hometargets keeps your perchased servers and darkweb from being clobbered
     var hometargets = ["foodnstuff", "sigma-cosmetics", "joesguns", "hong-fang-tea", "harakiri-sushi", "iron-gym"];
     var servers = hometargets.concat(breakwalls);
+
+    // Update version determination
+    updateTime = date.now()
+    write("_replicator.update.time.txt", data=updateTime, mode="w")
+    myupdate
+    mylastupdate
 }
 
 print(servers);
@@ -50,8 +56,9 @@ for (var i = 0; i < servers.length; i++) {
         default:
             if (serverExists(serv)) {
                 scp("replicator.script", "home", serv);
-                scp("milk.script", serv);
-                scp("h.script", serv);
+                scp("milk.script", "home", serv);
+                scp("h.script", "home", serv);
+                scp("_replicator.update.time.txt", "home", serv);
                 if (!hasRootAccess(serv)) {
                     if (getServerRequiredHackingLevel(serv) > getHackingLevel()) {
                         //tprint('server hacking level too high @ ' + serv + ': ' + getServerRequiredHackingLevel(serv));
@@ -105,18 +112,17 @@ for (var i = 0; i < servers.length; i++) {
                     }
                     print(serv + ' rooted');
                 }
-                /*
+                
                 // Force update has failed. It's clobbering recent runs of milk.
                 // Force payload update
-                if (args[0] == "force") {
-                    if (!scriptRunning("replicator.script", serv, "force")) {
+                if (read("_replicator.update.time.txt" > read("_replicator.update.time.last.txt")) {
+                    mv _replicator.update.time.txt _replicator.update.time.last.txt
                         killall(serv);
                         //print('waiting 10s for killing scripts');
                         sleep(10000);
                         exec("replicator.script", serv, 1, "force", 0);
-                    }
-                }*/
-                
+                }
+
                 if (!scriptRunning("milk.script", serv)) {
                     if (!scriptRunning("replicator.script", serv)) {
                         killall(serv);
@@ -137,6 +143,7 @@ switch (getHostname()) {
     default:
         spawn("milk.script", 1);
         exec("milk.script", getHostname(), 1);
+        mv _replicator.update.time.txt _replicator.update.time.last.txt 
         //print('waiting 5s for script start');
         sleep(5000);
         break;
