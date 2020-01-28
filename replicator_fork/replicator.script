@@ -36,10 +36,8 @@ if (getHostname() == "home") {
     var servers = hometargets.concat(breakwalls);
 
     // Update version determination
-    updateTime = date.now()
-    write("_replicator.update.time.txt", data=updateTime, mode="w")
-    myupdate
-    mylastupdate
+    updateTime = Date.now();
+    write("_replicator.time.txt", data=updateTime, mode="w");
 }
 
 print(servers);
@@ -113,21 +111,19 @@ for (var i = 0; i < servers.length; i++) {
                     print(serv + ' rooted');
                 }
                 
-                // Force update has failed. It's clobbering recent runs of milk.
-                // Force payload update
-                if (read("_replicator.update.time.txt" > read("_replicator.update.time.last.txt")) {
-                    mv _replicator.update.time.txt _replicator.update.time.last.txt
+                // Is this a new run, or part of the last run?
+                if (read("_replicator.time.txt") > read("_replicator.time.last.txt")) {
                         killall(serv);
-                        //print('waiting 10s for killing scripts');
-                        sleep(10000);
-                        exec("replicator.script", serv, 1, "force", 0);
+                        //print('waiting 3s for killing scripts');
+                        sleep(3000);
+                        exec("replicator.script", serv, 1, 0);
                 }
 
                 if (!scriptRunning("milk.script", serv)) {
                     if (!scriptRunning("replicator.script", serv)) {
                         killall(serv);
-                        //print('waiting 10s for killing scripts');
-                        sleep(10000);
+                        //print('waiting 3s for killing scripts');
+                        sleep(3000);
                         exec("replicator.script", serv, 1, 0);
                     }
                 }
@@ -143,7 +139,8 @@ switch (getHostname()) {
     default:
         spawn("milk.script", 1);
         exec("milk.script", getHostname(), 1);
-        mv _replicator.update.time.txt _replicator.update.time.last.txt 
+        thisruntime = read("_replicator.time.txt"); 
+        write("_replicator.time.last.txt", data=thisruntime, mode="w");
         //print('waiting 5s for script start');
         sleep(5000);
         break;
