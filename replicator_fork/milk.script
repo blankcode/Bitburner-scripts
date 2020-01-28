@@ -20,11 +20,11 @@ while (true) {
     // milks RAM
     MilkRAM = getScriptRam("milk.script");
     HackRAM = getScriptRam("h.script");
-    
+    // RAM on host after maill is running
+    // I'll probably write this at some point to be more dynamic, but right now it's fine.
     LocalRAMAvail = (Math.round(LocalRam - MilkRAM));
     
-    
-    // Proportional threading
+        // Proportional threading
     // NOw takes RAM into account
     homeRAM = getServerRam("home");
     totalRAM = homeRAM[0];
@@ -39,7 +39,6 @@ while (true) {
     Hthreads = Math.round(LocalRAMAvail / HackRAM);
     // When to stop hacking. 0.9 hacks to 90% (it takes 10% out)
     DrainGoal = (MaxCash * 0.9);
-
 
     // Do all the things
     if (SerSec > MinSec) {
