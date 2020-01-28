@@ -4,9 +4,6 @@
 host = getHostname();
 while (true) {
     // Target Host stats
-    // Server Sec
-    SerSec = getServerSecurityLevel(host);
-    MinSec = getServerMinSecurityLevel(host);
     // Server Cash
     SerCash = getServerMoneyAvailable(host);
     MaxCash = getServerMaxMoney(host);
@@ -14,6 +11,14 @@ while (true) {
     if (MaxCash < 1) {
         exit();
     }
+    // Server Sec
+    SerSec = getServerSecurityLevel(host);
+    MinSec = getServerMinSecurityLevel(host);
+    // Local RAM
+    res = getServerRam(host);
+    LocalRam = res[0];
+    
+
     // Proportional threading
     // NOw takes RAM into account
     homeRAM = getServerRam("home");
@@ -25,7 +30,9 @@ while (true) {
     Gthreads = Math.round(SerSec * 10 * ThreadsBoost);
     // Weaken Threads
     Wthreads = Math.round(SerSec * 10 * ThreadsBoost);
+    // When to stop hacking. 0.9 hacks to 90% (it takes 10% out)
     DrainGoal = (MaxCash * 0.9);
+
 
     // Do all the things
     if (SerSec > MinSec) {
@@ -35,7 +42,7 @@ while (true) {
             exec("arg.script", "home", Gthreads, host);
         } else {
             while (getServerMoneyAvailable(host) > DrainGoal) {
-                hack(host);
+                run("h.script", );
             }
         }
     }
