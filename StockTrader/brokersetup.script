@@ -1,0 +1,11 @@
+// brokersetup.script
+
+// Purchase a Server
+purchaseServer("TradingHouse", 1024);
+
+// Send the files for the brokerage
+files = ["broker.script", "brokermanager.script"];
+scp(files, "TradingHouse");
+
+// Hire a manager to get the pleebs on the floor going
+exec("brokermanager.script", "TradingHouse", 1)
