@@ -18,13 +18,13 @@ while (true) {
     hereRAM = getServerRam(host);
     LocalRam = hereRAM[0];
     // milks RAM
-    MilkRAM = getScriptRam("milk.script");
-    HackRAM = getScriptRam("h.script");
+    MilkRAM = Math.round(getScriptRam("milk.script"));
+    HackRAM = Math.round(getScriptRam("h.script"));
     // RAM on host after maill is running
     // I'll probably write this at some point to be more dynamic, but right now it's fine.
     LocalRAMAvail = (Math.round(LocalRam - MilkRAM));
     
-        // Proportional threading
+    // Proportional threading
     // NOw takes RAM into account
     homeRAM = getServerRam("home");
     totalRAM = homeRAM[0];
@@ -48,7 +48,7 @@ while (true) {
             exec("arg.script", "home", Gthreads, host);
         } else {
             while (getServerMoneyAvailable(host) > DrainGoal) {
-                run("h.script", Hthreads);
+                run("h.script", Hthreads, host);
             }
         }
     }
