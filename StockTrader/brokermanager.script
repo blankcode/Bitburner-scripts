@@ -13,5 +13,5 @@ symbols = ["ECP", "MGCP", "BLD", "CLRK", "OMTK",
 
 // Main loop
 for (i= 0; i < symbols.length; i++){
-    exec(broker.script, MYHOST, symbols[i]);
+    exec("broker.script", MYHOST, 1, symbols[i]);
 }
