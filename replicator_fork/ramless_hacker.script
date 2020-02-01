@@ -1,0 +1,57 @@
+// ramless_hacker.script
+// Hack if seclev is lowest and money is max.
+// Hack until you have removed 10% of the max money.
+sleep(10000);
+host = getHostname();
+serv = args[0];
+tprint(getHostname() + ": RAMLessHacker Starting  " + serv); 
+
+// Local RAM
+hereRAM = getServerRam(host);
+LocalRam = hereRAM[0];
+
+// ramless Hacker RAM
+ramless_hackerRAM = getScriptRam("ramless_hacker.script");
+HackRAM = getScriptRam("h.script");
+WeakenRAM = getScriptRam("w.script");
+GrowRAM = getScriptRam("g.script");
+
+// RAM on host after maill is running
+// I'll probably write this at some point to be more dynamic, but right now it's fine.
+LocalRAMAvail = (Math.floor(LocalRam - ramless_hackerRAM));
+
+// When to stop hacking. 0.9 hacks to 90% (it takes 10% out)
+MaxCash = getServerMaxMoney(serv);
+DrainGoal = (MaxCash * 0.9);
+
+// Minimum Security level on the target
+MinSec = getServerMinSecurityLevel(serv);
+
+// Grow Threads
+Gthreads = Math.round(LocalRAMAvail / GrowRAM);
+// Weaken Threads
+Wthreads = Math.round(LocalRAMAvail / WeakenRAM);
+// Hack Threads
+Hthreads = Math.round(MinSec * 2);
+// === All above should be constant
+
+while (true) {
+    sleep(2000);
+    // Target Host stats
+    // Server Cash
+    SerCash = getServerMoneyAvailable(serv);
+    // Server Sec
+    SerSec = getServerSecurityLevel(serv);
+    // Target Host stats end
+
+    // Do all the things
+    if (SerSec > MinSec) {
+        run("w.script", Wthreads, serv);
+    } else if (SerCash < MaxCash) {
+        run("g.script", Gthreads, serv);
+    } else {
+        while (getServerMoneyAvailable(serv) > DrainGoal) {
+            run("h.script", Hthreads, serv);
+        }
+    }
+}

@@ -2,54 +2,63 @@
 // Hack if seclev is lowest and money is max.
 // Hack until you have removed 10% of the max money.
 host = getHostname();
+
+// Let the slower ones go
+sleep(2000);
+// Target Host stats
+// Server Cash
+MaxCash = getServerMaxMoney(host);
+// No cash. Exit.
+if (MaxCash < 1) {
+    exit();
+}
+// Server Sec
+SerSec = getServerSecurityLevel(host);
+MinSec = getServerMinSecurityLevel(host);
+// Local RAM
+hereRAM = getServerRam(host);
+LocalRam = hereRAM[0];
+// milks RAM
+MilkRAM = Math.floor(getScriptRam("milk.script"));
+HackRAM = Math.round(getScriptRam("h.script"));
+// RAM on host after maill is running
+// I'll probably write this at some point to be more dynamic, but right now it's fine.
+LocalRAMAvail = (Math.round(LocalRam - MilkRAM));
+
+// Proportional threading
+// NOw takes RAM into account
+homeRAM = getServerRam("home");
+totalRAM = homeRAM[0];
+
+// Tune Proportional Threading
+// RAM Boost (home RAM GBs divided by 1000. 8192 / 4000 = 2 * 10 = 20) (20 Threads)
+ThreadsBoost = Math.round(totalRAM / 4000);
+
+// Grow Threads
+Gthreads = Math.round(SerSec * ThreadsBoost);
+// Weaken Threads
+Wthreads = Math.round(SerSec * ThreadsBoost);
+// Hack Threads
+Hthreads = Math.round(LocalRAMAvail / HackRAM);
+
+// When to stop hacking. 0.9 hacks to 90% (it takes 10% out)
+DrainGoal = (MaxCash * 0.9);
+// === All above should be constant
+
 while (true) {
-    // Target Host stats
+    sleep(2000);
     // Server Cash
     SerCash = getServerMoneyAvailable(host);
-    MaxCash = getServerMaxMoney(host);
-    // No cash. Exit.
-    if (MaxCash < 1) {
-        exit();
-    }
     // Server Sec
     SerSec = getServerSecurityLevel(host);
-    MinSec = getServerMinSecurityLevel(host);
-    // Local RAM
-    hereRAM = getServerRam(host);
-    LocalRam = hereRAM[0];
-    // milks RAM
-    MilkRAM = Math.round(getScriptRam("milk.script"));
-    HackRAM = Math.round(getScriptRam("h.script"));
-    // RAM on host after maill is running
-    // I'll probably write this at some point to be more dynamic, but right now it's fine.
-    LocalRAMAvail = (Math.round(LocalRam - MilkRAM));
-    
-    // Proportional threading
-    // NOw takes RAM into account
-    homeRAM = getServerRam("home");
-    totalRAM = homeRAM[0];
-    // Tune Proportional Threading
-    // RAM Boost (home RAM GBs divided by 1000. 8192 / 4000 = 2 * 10 = 20) (20 Threads)
-    ThreadsBoost = Math.round(totalRAM / 4000);
-    // Grow Threads
-    Gthreads = Math.round(SerSec * 10 * ThreadsBoost);
-    // Weaken Threads
-    Wthreads = Math.round(SerSec * 10 * ThreadsBoost);
-    // Hack Threads
-    Hthreads = Math.round(LocalRAMAvail / HackRAM);
-    // When to stop hacking. 0.9 hacks to 90% (it takes 10% out)
-    DrainGoal = (MaxCash * 0.9);
-
     // Do all the things
     if (SerSec > MinSec) {
         exec("arw.script", "home", Wthreads, host);
+    } else if (SerCash < MaxCash) {
+        exec("arg.script", "home", Gthreads, host);
     } else {
-        if (SerCash < MaxCash) {
-            exec("arg.script", "home", Gthreads, host);
-        } else {
-            while (getServerMoneyAvailable(host) > DrainGoal) {
-                run("h.script", Hthreads, host);
-            }
+        while (getServerMoneyAvailable(host) > DrainGoal) {
+            run("h.script", Hthreads, host);
         }
     }
 }

@@ -1,12 +1,7 @@
 // replicator.script
 // happylittleforkbomb fork
 // u/pythonbashman
-/*
-CHANGES:
-	replicator won't clobber milk.script or itself
-	always scp new copies from "home" for easy updating
-	milk will hack locally but ask "home" for 200 threads of grow or weaken
-*/
+
 print('checking programs');
 var programs = ["brutessh.exe",
     "ftpcrack.exe",
@@ -15,6 +10,7 @@ var programs = ["brutessh.exe",
     "sqlinject.exe",
     "nuke.exe"
 ];
+
 var progs = 0;
 for (var j = 0; j < programs.length; j++) {
     var prog = programs[j];
@@ -23,57 +19,52 @@ for (var j = 0; j < programs.length; j++) {
         print(progs + ' found');
     }
 }
-var servers2 = [getHostname()];
-var scanner = scan(getHostname());
-var servers = servers2.concat(scanner);
 
+// var scanner = scan(getHostname());
 if (getHostname() == "home") {
-    // replicator is not able to spread past nodes with no RAM.
-    // Add these to the breakwall array as they are located
-    var breakwalls = ["summit-uni", "I.I.I.I", "omnia", "solaris", "unitalife", "global-pharm"];
-    // hometargets keeps your perchased servers and darkweb from being clobbered
-    var hometargets = ["foodnstuff", "sigma-cosmetics", "joesguns", "hong-fang-tea", "harakiri-sushi", "iron-gym"];
-    var servers = hometargets.concat(breakwalls);
-
-    // Update version determination
     updateTime = Date.now();
     write("_replicator.time.txt", data = updateTime, mode = "w");
 }
 
-print(servers);
+var servers2 = [getHostname()];
+var scanner = scan(getHostname());
+if (args[0] !== null) {
+    servers = scan(args[0]);
+} else {
+    var servers = servers2.concat(scanner);
+}
 
 for (var i = 0; i < servers.length; i++) {
     var serv = servers[i];
     switch (serv) {
-        case "home":
-            break;
-        case "darkweb":
+        // I figured out how to use RegEx here
+        case (serv.match(/-hack$|home|darkweb|TradingHouse/) || {}).input:
             break;
         case getHostname():
             break;
         default:
             if (serverExists(serv)) {
-                scp("replicator.script", "home", serv);
-                scp("milk.script", "home", serv);
-                scp("h.script", "home", serv);
-                scp("_replicator.time.txt", "home", serv);
+                files = ["replicator.script", "milk.script", "h.script", "_replicator.time.txt"];
+                scp(files, "home", serv);
+                // Servers that have no RAM... Lets hack'em anyway :)
+                NextTargetRes = getServerRam(serv);
+                NextTargetRAM = NextTargetRes[0];
+                if (NextTargetRAM < 1) {
+                    exec("ramless.script", "home", 1, serv);
+                    break;
+                }
                 if (!hasRootAccess(serv)) {
                     if (getServerRequiredHackingLevel(serv) > getHackingLevel()) {
-                        //tprint('server hacking level too high @ ' + serv + ': ' + getServerRequiredHackingLevel(serv));
                     } else {
-                        print('hacking ' + serv);
                         var ports = getServerNumPortsRequired(serv);
                         if (!fileExists(programs[5], "home")) {
-                            print('missing NUKE.exe program');
                         } else if (ports + 1 > progs) {
-                            print('not enough programs waiting until you have enough programs');
                             for (; progs < ports + 1;) {
                                 var progs = 0;
                                 for (var j = 0; j < programs.length; j++) {
                                     var prog = programs[j];
                                     if (fileExists(prog, "home")) {
                                         progs++;
-                                        print(progs + ' found need ' + ports + 1);
                                     }
                                 }
                             }
@@ -108,32 +99,35 @@ for (var i = 0; i < servers.length; i++) {
                             nuke(serv);
                         }
                     }
-                    print(serv + ' rooted');
                 }
 
                 // Is this a new run, or part of the last run?
                 if (read("_replicator.time.txt") > read("_replicator.time.last.txt")) {
                     killall(serv);
-                    //print('waiting 3s for killing scripts');
                     sleep(3000);
-                    exec("replicator.script", serv, 1, 0);
+                    exec("replicator.script", serv, 1);
                 }
             }
     }
 }
 switch (getHostname()) {
-    case "home":
+    // I figured out how to use RegEx here
+    case (serv.match(/home|darkweb|TradingHouse/) || {}).input:
         break;
-    case "darkweb":
+    case (serv.match(/-hack$/) || {}).input:
+        if (!fileExists("_replicator.time.last.txt")) {
+            write("_replicator.time.last.txt", data = 0, mode = "w");
+        }
+        write("_replicator.time.last.txt", data = read("_replicator.time.txt"), mode = "w");
+        exec("ramless_hacker.script", pservname, 1, serv);
+        sleep(5000);
         break;
     default:
         if (!fileExists("_replicator.time.last.txt")) {
-            write("_replicator.time.last.txt", data=0, mode="w");
-            }
-        write("_replicator.time.last.txt", data=read("_replicator.time.txt"), mode="w");
-        spawn("milk.script", 1);
+            write("_replicator.time.last.txt", data = 0, mode = "w");
+        }
+        write("_replicator.time.last.txt", data = read("_replicator.time.txt"), mode = "w");
         exec("milk.script", getHostname(), 1);
-        //print('waiting 5s for script start');
         sleep(5000);
         break;
 }

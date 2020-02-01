@@ -2,7 +2,7 @@
 // RAM needed 512 GB
 
 // Whats the lowest forecast we want to buy? 5.5 is about as low as I would go.
-goodbuy = 0.55;
+goodbuy = 0.6;
 
 // Percent of budget to use total money to use.
 // This script SHOULD only buy 2+ Star stocks, so not all 33 stocks bought into.
@@ -13,6 +13,7 @@ stock = args[0];
 
 // Main loop
 while (true) {
+    sleep(2000);
     fcast = getStockForecast(stock);
     // how much money to use (var "mymoney")
     mymoney = getServerMoneyAvailable("home") * mybudget;
