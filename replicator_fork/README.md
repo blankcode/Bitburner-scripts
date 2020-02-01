@@ -22,3 +22,5 @@ Like a NAVY SEAL Team calling in a heavy strike from an AC-130 Gunship.
 "Bring the rain!"
 
 :)
+
+Note: When you are first starting a new run, the servers are going to have high security levels. This is going to tax your RAM, as it goes on and the seclevs get lowered RAM will stablize.
