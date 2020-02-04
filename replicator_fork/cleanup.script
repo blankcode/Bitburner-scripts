@@ -1,0 +1,12 @@
+// cleanup.script
+servers = getPurchasedServers(trun)
+
+for (var i = 0; i < servers.length; i++) {
+    var serv = servers[i];
+    switch (serv) {
+        case "TradingHouse":
+            break;
+        default:
+            deleteServer(serv);
+    }
+}

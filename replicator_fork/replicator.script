@@ -38,7 +38,7 @@ for (var i = 0; i < servers.length; i++) {
     var serv = servers[i];
     switch (serv) {
         // I figured out how to use RegEx here
-        case (serv.match(/-hack$|home|darkweb|TradingHouse/) || {}).input:
+        case (serv.match(/home|darkweb|TradingHouse/) || {}).input:
             break;
         case getHostname():
             break;
@@ -51,7 +51,6 @@ for (var i = 0; i < servers.length; i++) {
                 NextTargetRAM = NextTargetRes[0];
                 if (NextTargetRAM < 1) {
                     exec("ramless.script", "home", 1, serv);
-                    break;
                 }
                 if (!hasRootAccess(serv)) {
                     if (getServerRequiredHackingLevel(serv) > getHackingLevel()) {
@@ -102,7 +101,10 @@ for (var i = 0; i < servers.length; i++) {
                 }
 
                 // Is this a new run, or part of the last run?
-                if (read("_replicator.time.txt") > read("_replicator.time.last.txt")) {
+                if (serv < 1) {
+                    exec("ramless.script", "home", 1, serv);
+                    break;
+                } else if (read("_replicator.time.txt") > read("_replicator.time.last.txt")) {
                     killall(serv);
                     sleep(3000);
                     exec("replicator.script", serv, 1);
@@ -119,7 +121,7 @@ switch (getHostname()) {
             write("_replicator.time.last.txt", data = 0, mode = "w");
         }
         write("_replicator.time.last.txt", data = read("_replicator.time.txt"), mode = "w");
-        exec("ramless_hacker.script", pservname, 1, serv);
+        exec("ramless_hacker.script", "home", 1, serv);
         sleep(5000);
         break;
     default:

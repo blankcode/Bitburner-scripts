@@ -1,27 +1,30 @@
 // ramless.script
 // Executes when replicator finds servers without RAM
 // Then pass that to the RAMless hacker.
+// Rewrite to perform from all functions from "home".
+
 serv = args[0];
 
-files = ["replicator.script", "_replicator.time.txt", "ramless_hacker.script", "h.script", "g.script", "w.script"];
+files = ["replicator.script", "_replicator.time.txt"];
 pservname = (serv + "-hack");
-if (!serverExists(pservname)) {
-    // No cash?
-    if (MaxCash > 1) {
-        purchaseServer(pservname, 1024);
-    }
 
-}
+// Purchase a server for RAMLess Replication
+//if (!serverExists(pservname)) {
+    purchaseServer(pservname, 16);
+//}
+
 if (serverExists(pservname)) {
-    
-    killall(pservname);
-    sleep(1000);
+    kill("ramless_hacker.script", 1, serv);
+    sleep(2000);
     scp(files, "home", pservname); 
-    //exec("ramless_hacker.script", pservname, 1, serv);
+    run("ramless_hacker.script", 1, serv);
 }
 
 // After buying and or re/starting ramless_hacker
 // scan the server without RAM and Replicate to those
 // new targets from "home".
 exec("replicator.script", pservname, 1, serv);
-sleep(120000);
+sleep(60000);
+deleteServer(pservname);
+sleep(60000);
+deleteServer(pservname);

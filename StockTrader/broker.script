@@ -2,7 +2,7 @@
 // RAM needed 512 GB
 
 // Whats the lowest forecast we want to buy? 5.5 is about as low as I would go.
-goodbuy = 0.6;
+goodbuy = 0.51;
 
 // Percent of budget to use total money to use.
 // This script SHOULD only buy 2+ Star stocks, so not all 33 stocks bought into.
