@@ -26,22 +26,19 @@ if (getHostname() == "home") {
     write("_replicator.time.txt", data = updateTime, mode = "w");
 }
 
-//var servers2 = [getHostname()];
-//var scanner = scan(getHostname());
+var servers2 = [getHostname()];
+var scanner = scan(getHostname());
 if (args[0] !== null) {
-    var servers = scan(args[0]);
+    servers = scan(args[0]);
 } else {
-    //var servers = servers2.concat(scanner);
-    var servers = scan(getHostname());
+    var servers = servers2.concat(scanner);
 }
 
 for (var i = 0; i < servers.length; i++) {
     var serv = servers[i];
     switch (serv) {
         // I figured out how to use RegEx here
-        case (serv.match(/-hack$|home|darkweb|TradingHouse/) || {}).input:
-            break;
-        case (args[0]):
+        case (serv.match(/home|darkweb|TradingHouse/) || {}).input:
             break;
         case getHostname():
             break;
@@ -56,9 +53,11 @@ for (var i = 0; i < servers.length; i++) {
                     exec("ramless.script", "home", 1, serv);
                 }
                 if (!hasRootAccess(serv)) {
-                    if (getServerRequiredHackingLevel(serv) > getHackingLevel()) {} else {
+                    if (getServerRequiredHackingLevel(serv) > getHackingLevel()) {
+                    } else {
                         var ports = getServerNumPortsRequired(serv);
-                        if (!fileExists(programs[5], "home")) {} else if (ports + 1 > progs) {
+                        if (!fileExists(programs[5], "home")) {
+                        } else if (ports + 1 > progs) {
                             for (; progs < ports + 1;) {
                                 var progs = 0;
                                 for (var j = 0; j < programs.length; j++) {
@@ -102,12 +101,13 @@ for (var i = 0; i < servers.length; i++) {
                 }
 
                 // Is this a new run, or part of the last run?
-                if (read("_replicator.time.txt") > read("_replicator.time.last.txt")) {
-                    if (NextTargetRAM > 1) {
-                        killall(serv);
-                        sleep(2000);
-                        exec("replicator.script", serv, 1);
-                    }
+                if (serv < 1) {
+                    exec("ramless.script", "home", 1, serv);
+                    break;
+                } else if (read("_replicator.time.txt") > read("_replicator.time.last.txt")) {
+                    killall(serv);
+                    sleep(3000);
+                    exec("replicator.script", serv, 1);
                 }
             }
     }
@@ -115,8 +115,6 @@ for (var i = 0; i < servers.length; i++) {
 switch (getHostname()) {
     // I figured out how to use RegEx here
     case (serv.match(/home|darkweb|TradingHouse/) || {}).input:
-        break;
-    case (args[0]):
         break;
     case (serv.match(/-hack$/) || {}).input:
         if (!fileExists("_replicator.time.last.txt")) {

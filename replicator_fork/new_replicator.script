@@ -1,0 +1,4 @@
+// new_replicator.script
+
+spawn("replicator.script", "home", 1);
+killall();
