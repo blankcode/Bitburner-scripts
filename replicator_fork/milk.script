@@ -67,6 +67,26 @@ LHthreads = Math.round(LocalRAMAvail / HackRAM);
 DrainGoal = (MaxCash * 0.9);
 // === All above should be constant
 
+// Not enough RAM?
+if (HGthreads < 1) {
+    HGthreads = 1;
+}
+if (HWthreads < 1) {
+    HWthreads = 1;
+}
+if (HHthreads < 1) {
+    HHthreads = 1;
+}
+if (LGthreads < 1) {
+    LGthreads = 1;
+}
+if (LWthreads < 1) {
+    LWthreads = 1;
+}
+if (LHthreads < 1) {
+    LHthreads = 1;
+}
+
 while (true) {
     sleep(2000);
     // Server Cash
