@@ -57,7 +57,7 @@ HHthreads = Math.round(LocalRAMAvail / HackRAM);
 
 // Local Threading
 // Grow Threads
-LGthreads = Math.round(LocalRAMAvail*/ GrowRAM);
+LGthreads = Math.round(LocalRAMAvail / GrowRAM);
 // Weaken Threads
 LWthreads = Math.round(LocalRAMAvail / WeakenRAM);
 // Hack Threads
