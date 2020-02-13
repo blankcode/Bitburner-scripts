@@ -5,41 +5,63 @@ host = getHostname();
 
 // Let the slower ones go
 sleep(2000);
+
 // Target Host stats
 // Server Cash
 MaxCash = getServerMaxMoney(host);
+
 // No cash. Exit.
 if (MaxCash < 1) {
     exit();
 }
+
 // Server Sec
 SerSec = getServerSecurityLevel(host);
 MinSec = getServerMinSecurityLevel(host);
+
 // Local RAM
 hereRAM = getServerRam(host);
 LocalRam = hereRAM[0];
+
 // milks RAM
 MilkRAM = Math.floor(getScriptRam("milk.script"));
+
+// RAM for local Hack, Grow and Weaken
 HackRAM = Math.round(getScriptRam("h.script"));
+GrowRAM = Math.round(getScriptRam("g.script"));
+WeakenRAM = Math.round(getScriptRam("w.script"));
+
 // RAM on host after maill is running
 // I'll probably write this at some point to be more dynamic, but right now it's fine.
 LocalRAMAvail = (Math.round(LocalRam - MilkRAM));
 
 // Proportional threading
-// NOw takes RAM into account
-homeRAM = getServerRam("home");
-totalRAM = homeRAM[0];
+// Now takes RAM into account
+homeRES = getServerRam("home");
+totalRAM = homeRES[0];
+
+localRES = getServerRam("home");
+totalRAM = localRES[0];
 
 // Tune Proportional Threading
 // RAM Boost (home RAM GBs divided by 1000. 8192 / 4000 = 2 * 10 = 20) (20 Threads)
 ThreadsBoost = Math.round(totalRAM / 4000);
 
+// Home Threading
 // Grow Threads
-Gthreads = Math.round(SerSec * ThreadsBoost);
+HGthreads = Math.round(SerSec * ThreadsBoost);
 // Weaken Threads
-Wthreads = Math.round(SerSec * ThreadsBoost);
+HWthreads = Math.round(SerSec * ThreadsBoost);
 // Hack Threads
-Hthreads = Math.round(LocalRAMAvail / HackRAM);
+HHthreads = Math.round(LocalRAMAvail / HackRAM);
+
+// Local Threading
+// Grow Threads
+LGthreads = Math.round(LocalRAMAvail*/ GrowRAM);
+// Weaken Threads
+LWthreads = Math.round(LocalRAMAvail / WeakenRAM);
+// Hack Threads
+LHthreads = Math.round(LocalRAMAvail / HackRAM);
 
 // When to stop hacking. 0.9 hacks to 90% (it takes 10% out)
 DrainGoal = (MaxCash * 0.9);
@@ -53,12 +75,14 @@ while (true) {
     SerSec = getServerSecurityLevel(host);
     // Do all the things
     if (SerSec > MinSec) {
-        exec("arw.script", "home", Wthreads, host);
+        exec("arw.script", "home", HWthreads, host);
+        run("w.script", LWthreads, host);
     } else if (SerCash < MaxCash) {
-        exec("arg.script", "home", Gthreads, host);
+        exec("arg.script", "home", HGthreads, host);
+        run("g.script", LGthreads, host);
     } else {
         while (getServerMoneyAvailable(host) > DrainGoal) {
-            run("h.script", Hthreads, host);
+            run("h.script", HHthreads, host);
         }
     }
 }
