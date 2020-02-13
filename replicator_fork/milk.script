@@ -103,6 +103,7 @@ while (true) {
     } else {
         while (getServerMoneyAvailable(host) > DrainGoal) {
             run("h.script", HHthreads, host);
+            sleep(1000);
         }
     }
 }
