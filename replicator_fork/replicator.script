@@ -47,7 +47,7 @@ for (var i = 0; i < servers.length; i++) {
             break;
         default:
             if (serverExists(serv)) {
-                files = ["replicator.script", "milk.script", "h.script", "_replicator.time.txt"];
+                files = ["replicator.script", "milk.script", "h.script", "g.script", "w.script", "_replicator.time.txt"];
                 scp(files, "home", serv);
                 // Servers that have no RAM... Lets hack'em anyway :)
                 NextTargetRes = getServerRam(serv);
