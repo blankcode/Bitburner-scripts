@@ -1,0 +1,17 @@
+// brokermanager.script
+// RAM needed 512 GB
+
+MYHOST = getHostname();
+symbols = ["ECP", "MGCP", "BLD", "CLRK", "OMTK",
+           "FSIG", "KGI", "FLCM", "STM", "DCOMM",
+           "HLS", "VITA", "ICRS", "UNV", "AERO",
+           "OMN", "SLRS", "GPH", "NVMD", "WDS",
+           "LXO", "RHOC", "APHE", "SYSC", "CTK",
+           "NTLK", "OMGA", "FNS", "SGC", "JGN",
+           "CTYS", "MDYN", "TITN"
+  ];
+
+// Main loop
+for (i= 0; i < symbols.length; i++){
+    exec("broker.script", MYHOST, 1, symbols[i]);
+}

@@ -7,7 +7,7 @@ if (serverExists("TradingHouse")) {
 }
 
 sleep(2000);
-purchaseServer("TradingHouse", 512);
+purchaseServer("TradingHouse", 1024);
 
 // Send the files for the brokerage
 files = ["broker.script", "brokermanager.script"];
