@@ -27,36 +27,18 @@ while (true) {
 
     // Max shares
     maxshares = getStockMaxShares(stock);
-    if (myshares > maxshares) {
-        myshares = maxshares;
-    }
+    if (myshares > maxshares) { myshares = maxshares; }
     // Long
     // IF "fcast" is greater than goodbuy purchase
-    if (fcast > goodbuyLong) {
-        if (ownedshares[0] < 1) {
-            buyStock(stock, myshares);
-        }
-    }
+    if (fcast > goodbuyLong) { if (ownedshares[0] < 1) { buyStock(stock, myshares); } }
 
     // IF "fcast" is lesser than goodbuy sell
-    if (fcast < goodbuyLong) {
-        if (ownedshares[0] > 1) {
-            sellStock(stock, ownedshares[0]);
-        }
-    }
+    else if (fcast < goodbuyLong) { if (ownedshares[0] > 1) { sellStock(stock, ownedshares[0]); } }
 
     // Short
-    // IF "fcast" is greater than goodbuy purchase
-    if (fcast < goodbuyShort) {
-        if (ownedshares[0] < 1) {
-            shortStock(stock, myshares);
-        }
-    }
+    // IF "fcast" is less than goodbuy purchase
+    else if (fcast < goodbuyShort) { if (ownedshares[0] < 1) { shortStock(stock, myshares); } }
 
-    // IF "fcast" is lesser than goodbuy sell
-    if (fcast > goodbuyShort) {
-        if (ownedshares[0] > 1) {
-            sellShort(stock, ownedshares[0]);
-        }
-    }
+    // IF "fcast" is greater than goodbuy sell
+    else if (fcast > goodbuyShort) { if (ownedshares[0] > 1) { sellShort(stock, ownedshares[0]); } }
 }
