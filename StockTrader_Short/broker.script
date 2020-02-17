@@ -33,12 +33,12 @@ while (true) {
     if (fcast > goodbuyLong) { if (ownedshares[0] < 1) { buyStock(stock, myshares); } }
 
     // IF "fcast" is lesser than goodbuy sell
-    else if (fcast < goodbuyLong) { if (ownedshares[0] > 1) { sellStock(stock, ownedshares[0]); } }
+    if (fcast < goodbuyLong) { if (ownedshares[0] > 1) { sellStock(stock, ownedshares[0]); } }
 
     // Short
     // IF "fcast" is less than goodbuy purchase
-    else if (fcast < goodbuyShort) { if (ownedshares[2] < 1) { shortStock(stock, myshares); } }
+    if (fcast < goodbuyShort) { if (ownedshares[2] < 1) { shortStock(stock, myshares); } }
 
     // IF "fcast" is greater than goodbuy sell
-    else if (fcast > goodbuyShort) { if (ownedshares[2] > 1) { sellShort(stock, ownedshares[2]); } }
+    if (fcast > goodbuyShort) { if (ownedshares[2] > 1) { sellShort(stock, ownedshares[2]); } }
 }
