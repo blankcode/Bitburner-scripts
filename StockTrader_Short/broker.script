@@ -1,9 +1,9 @@
 // broker.script
-// RAM needed 512 GB
+// RAM needed 1024 GB
 
 // Whats the lowest forecast we want to buy? 5.5 is about as low as I would go.
-goodbuyLong = 0.55;
-goodbuyShort = 0.45;
+goodbuyLong = 0.6;
+goodbuyShort = 0.4;
 
 // Percent of budget to use total money to use.
 // This script SHOULD only buy 2+ Star stocks, so not all 33 stocks bought into.
@@ -37,8 +37,8 @@ while (true) {
 
     // Short
     // IF "fcast" is less than goodbuy purchase
-    else if (fcast < goodbuyShort) { if (ownedshares[0] < 1) { shortStock(stock, myshares); } }
+    else if (fcast < goodbuyShort) { if (ownedshares[2] < 1) { shortStock(stock, myshares); } }
 
     // IF "fcast" is greater than goodbuy sell
-    else if (fcast > goodbuyShort) { if (ownedshares[0] > 1) { sellShort(stock, ownedshares[0]); } }
+    else if (fcast > goodbuyShort) { if (ownedshares[2] > 1) { sellShort(stock, ownedshares[2]); } }
 }
