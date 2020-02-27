@@ -15,10 +15,12 @@ if (!serverExists(pservname)) {
 
 sleep(2000);
 if (serverExists(pservname)) {
-    kill("ramless_hacker.script", 1, serv);
-    sleep(2000);
+    //kill("ramless_hacker.script", 1, serv);
+    //sleep(2000);
     scp(files, "home", pservname); 
-    run("ramless_hacker.script", 1, serv);
+    if (getServerRequiredHackingLevel(serv) < getHackingLevel()) {
+        run("ramless_hacker.script", 1, serv);
+    }
 }
 
 // After buying and or re/starting ramless_hacker
