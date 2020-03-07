@@ -95,10 +95,10 @@ while (true) {
     SerSec = getServerSecurityLevel(host);
     // Do all the things
     if (SerSec > MinSec) {
-        exec("arw.script", "home", HWthreads, host);
+        exec("w.script", "home", HWthreads, host);
         run("w.script", LWthreads, host);
     } else if (SerCash < MaxCash) {
-        exec("arg.script", "home", HGthreads, host);
+        exec("g.script", "home", HGthreads, host);
         run("g.script", LGthreads, host);
     } else {
         while (getServerMoneyAvailable(host) > DrainGoal) {
