@@ -11,7 +11,8 @@ symbols = ["ECP", "MGCP", "BLD", "CLRK", "OMTK",
            "CTYS", "MDYN", "TITN"
   ];
 
-killall();
+scriptKill("brokermanager.script", getHostname());
+scriptKill("broker.script", getHostname());
 
 // How many shares do I own
 ownedshares = getStockPosition(stock);
